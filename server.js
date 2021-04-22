@@ -13,18 +13,18 @@ const PORT = process.env.PORT || 3000
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(express.static("public"));
 const readFilePromise = util.promisify(fs.readFile);
 const writeFilePromise = util.promisify(fs.writeFile);
 
 const readFile = async () => {
-    let data = await readFilePromise("./Develop/db/db.json", "utf-8")
+    let data = await readFilePromise("./db/db.json", "utf-8")
     return JSON.parse(data)
 };
 
 const writeFile = async (data) => {
     data = JSON.stringify(data, null, 2)
-    await writeFilePromise("./Develop/db/db.json", data)
+    await writeFilePromise("./db/db.json", data)
 };
 
 // HTML Routes
